@@ -1,0 +1,2 @@
+To install GNU Scientific library on your system, please run ’make’. 
+If you want to remove the local installation, please run ’make clean’.

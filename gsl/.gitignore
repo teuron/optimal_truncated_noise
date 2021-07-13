@@ -1,0 +1,6 @@
+lib/
+*.so
+*.o
+*.a
+libs/
+gsl-2.6/.libs/*

@@ -31,7 +31,7 @@ def generate(method, epochs, args):
 
         try:
             print("EXECUTING", args)
-            _, _, _, _, _ = m.execute_single_run(args)
+            _, _, _, _ = m.execute_single_run(args)
         except KeyboardInterrupt as e:
             print(str(e))
 

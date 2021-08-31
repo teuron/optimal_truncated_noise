@@ -60,7 +60,7 @@ def generate(method, epochs, loss_function, plot_dir, args):
 
             try:
                 print("EXECUTING", args)
-                predicted, _, _, _, _ = m.execute_single_run(args)
+                predicted, _, _, _ = m.execute_single_run(args)
                 p = predicted.cpu().detach().numpy()
                 x_coords = np.linspace(-args.range_begin, args.range_begin, args.element_size, endpoint=True) + 10 ** -5
                 utils.write_noise(noise_dir + "/noise.csv", p, x_coords)
@@ -121,10 +121,7 @@ def main():
 
     # What we want to generate
     args.min_of_two_delta = True
-    generate("pb_ADP", 40000, "l1", plot_dir + "/pb_adp_l1_40k", args)
-    generate("pb_PDP", 40000, "l1", plot_dir + "/pb_pdp_l1_40k", args)
-    generate("renyi_markov", 200000, "l1", plot_dir + "/renyi_markov_l1_200k", args)
-    generate("pb_ADP", 40000, "l2", plot_dir + "/pb_adp_l2_40k", args)
+    generate("pb_ADP", 40000, "l2", plot_dir + "/pb_adp_l1_40k", args)
     generate("pb_PDP", 40000, "l2", plot_dir + "/pb_pdp_l2_40k", args)
     generate("renyi_markov", 200000, "l2", plot_dir + "/renyi_markov_l2_200k", args)
 
@@ -135,10 +132,7 @@ def main():
 
     # What we want to generate
     args.min_of_two_delta = False
-    generate("pb_ADP", 40000, "l1", plot_dir + "/pb_adp_l1_40k", args)
-    generate("pb_PDP", 40000, "l1", plot_dir + "/pb_pdp_l1_40k", args)
-    generate("renyi_markov", 200000, "l1", plot_dir + "/renyi_markov_l1_200k", args)
-    generate("pb_ADP", 40000, "l2", plot_dir + "/pb_adp_l2_40k", args)
+    generate("pb_ADP", 40000, "l2", plot_dir + "/pb_adp_l1_40k", args)
     generate("pb_PDP", 40000, "l2", plot_dir + "/pb_pdp_l2_40k", args)
     generate("renyi_markov", 200000, "l2", plot_dir + "/renyi_markov_l2_200k", args)
 

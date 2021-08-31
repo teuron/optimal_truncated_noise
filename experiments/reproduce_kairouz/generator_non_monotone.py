@@ -46,7 +46,7 @@ def generate(method, epochs, loss_function, plot_dir, args, delta_func):
 
         try:
             print("EXECUTING", args)
-            predicted, _, _, _, _ = m.execute_single_run(args)
+            predicted, _, _, _ = m.execute_single_run(args)
             p = predicted.cpu().detach().numpy()
             x_coords = np.linspace(-args.range_begin, args.range_begin, args.element_size, endpoint=True) + 10 ** -5
             utils.write_noise(f"{noise_dir}/noise.csv", p, x_coords)

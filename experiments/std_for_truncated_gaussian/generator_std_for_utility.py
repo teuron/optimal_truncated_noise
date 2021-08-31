@@ -1,5 +1,5 @@
 # written by Lukas Abfalterer in 2021 (labfalterer a.t. student.ethz.ch)
-# Computes sigma of a truncated gaussian for a given utility
+# Computes sigma of a truncated gaussian for a given delta
 import sys
 
 import numpy as np

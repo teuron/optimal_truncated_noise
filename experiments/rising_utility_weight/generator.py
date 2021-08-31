@@ -12,6 +12,21 @@ import evaluator as m  # noqa: 402
 import numpy as np  # noqa: 402
 import privacy_utils  # noqa: 402
 import utils  # noqa: 402
+import csv
+
+
+def write_noise(filename, delta, utility):
+    """Writes noise and x coordinates to a csv file
+
+    Args:
+        filename (String): Filename to write to
+        noise (nd.array): Generated Noise
+        x_coords (nd.array): X-axis discretization
+    """
+    with open(filename, mode="w") as f:
+        writer = csv.writer(f, delimiter=",", quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(["delta", "utility"])
+        writer.writerows(list(zip(delta, utility)))
 
 
 def generate(method, epochs, loss_function, plot_dir, args, delta_func):
@@ -58,7 +73,7 @@ def generate(method, epochs, loss_function, plot_dir, args, delta_func):
                 os.makedirs(noise_dir)
             try:
                 print("EXECUTING", args)
-                predicted, _, _, _ = m.execute_single_run(args)
+                predicted, _, _, delta, utilities = m.execute_single_run(args)
                 p = predicted.cpu().detach().numpy()
                 x_coords = np.linspace(-args.range_begin, args.range_begin, args.element_size, endpoint=True) + 10 ** -5
                 utils.write_noise(noise_dir + "/noise.csv", p, x_coords)
@@ -75,6 +90,7 @@ def generate(method, epochs, loss_function, plot_dir, args, delta_func):
                     f.write("Error in " + method + " " + str(eps) + " " + loss_function + " " + str(uw))
                     f.write(str(e))
 
+            write_noise(noise_dir + "/delta_utilities.csv", delta, utilities)
         utils.write_delta_utility(plot_dir + "/eps_" + str(eps) + "delta_utilities.csv", utility_weights, deltas, utilities)
 
 
@@ -103,7 +119,7 @@ def main():
     args.pb_buckets_half = 500
     args.factor = 1.000001
 
-    for uwd in [True]:
+    for uwd in [False]:
         # Create plot directory
         args.plot_dir = f"./plots_uwd_{uwd}"
         if not os.path.exists(args.plot_dir):
@@ -114,9 +130,10 @@ def main():
         #  args.utility_weight_halving_epochs = 16666
         # generate("renyi_markov", 100000, "l1", plot_dir + "/renyi_markov_l1", args, privacy_utils.calculate_pdp_delta)
         # generate("renyi_markov", 100000, "l2", plot_dir + "/renyi_markov_l2", args, privacy_utils.calculate_pdp_delta)
-        args.utility_weight_halving_epochs = 2500
+        args.utility_weight_decay = False
+        args.utility_weight_halving_epochs = 10000
         # generate("pb_ADP", 15000, "l1", plot_dir + "/pb_adp_l1", args, privacy_utils.calculate_adp_delta)
-        generate("pb_ADP", 15000, "l2", plot_dir + "/pb_adp_l2", args, privacy_utils.calculate_adp_delta)
+        generate("pb_ADP", 10000, "l2", plot_dir + "/pb_adp_l2", args, privacy_utils.calculate_adp_delta)
         # generate("pb_PDP", 15000, "l1", plot_dir + "/pb_pdp_l1", args, privacy_utils.calculate_pdp_delta)
         # generate("pb_PDP", 15000, "l2", plot_dir + "/pb_pdp_l2", args, privacy_utils.calculate_pdp_delta)
 

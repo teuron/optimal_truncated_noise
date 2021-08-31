@@ -37,7 +37,7 @@ eps = 0.3
 idx = 0
 for root, _, files in os.walk(sys.argv[1], topdown=False):
     result = pd.DataFrame()
-    for name in [f for f in files if ".csv" in f and "result" not in f and "cutted" not in f and "truncated" not in f]:
+    for name in [f for f in files if ".csv" in f and "result" not in f and "cutted" not in f]:
         fqdn = os.path.join(root, name)
         data = pd.read_csv(fqdn)
         x = data["X"].to_numpy()

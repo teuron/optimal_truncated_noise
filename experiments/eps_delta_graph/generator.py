@@ -55,7 +55,6 @@ def main():
     noise = pd.read_csv(sys.argv[2])["Y"].to_numpy()
     x_coords = pd.read_csv(sys.argv[2])["X"].to_numpy()
 
-    # Geng et al. optimal noise
     optimal_noise = privacy_utils.get_theoretical_optimal_noise_x(x=abs(x_coords), eps=0.3, number_of_compositions=1)
 
     epses = np.linspace(0.0, 0.5, 3000)

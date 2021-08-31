@@ -56,5 +56,3 @@ Contains the logic for running a specific experiment using the parameter from th
 Contains version 2.6 of the GNU Scientific Library. Run `make` in the directory to build GSL and `make clean` if you want to remove it.
 
 ## References
-
-[1] D. M. Sommer, L. Abfalterer, S. Zingg, E. Mohammadi, "Learning Numeric Optimal Differentially Private Truncated Additive Mechanisms", Where, 2021 (URL)

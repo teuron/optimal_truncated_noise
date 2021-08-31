@@ -583,9 +583,6 @@ class PrivacyBuckets:
         # the alpha renyi moments are the alpha-1 moments of the exponentiated bucket_distribution. Informal,
         # i.e. R(alpha) = 1/lam * ln E_{y~buckets} exp(y*lam)
         #
-        # for additional details, see Lemma 8 in
-        # Sommer et al. "Privacy loss classes: The central limit theorem in differential privacy." PoPETS 2019.2
-
         # to provide a upper bound, we assume that all content of a specific bucket manifests at the position
         # with the highest leakage (most right)
         summands = np.exp((np.arange(self.number_of_buckets) - self.one_index) * self.log_factor * lam)

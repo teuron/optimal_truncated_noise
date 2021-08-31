@@ -326,10 +326,6 @@ def optimal_sigma_gauss_PDP(mu, n, eps, PDP_delta):
     For a given (eps, delta)-PDP guarantees, this function computes the optimal sigma for
     Gaussian additive noise with mean-difference mu, after n composiitons.
 
-    For details see Corollary 3 in
-    Sommer et al. "Privacy loss classes: The central limit theorem in differential privacy." PoPETS 2019.2
-
-
     Args:
         mu (double): Mean
         n (double): Number of compositions
